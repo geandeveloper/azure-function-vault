@@ -4,6 +4,7 @@ using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
+using System;
 
 namespace AzureFunctionWithVault
 {
@@ -14,7 +15,8 @@ namespace AzureFunctionWithVault
         {
             log.LogInformation("C# HTTP trigger function processed a request.");
 
-            string responseMessage = "Hello World";
+            var connectionString =  Environment.GetEnvironmentVariable("ConnectionString", EnvironmentVariableTarget.Process);
+            string responseMessage = $"Hello World the connectionString is {connectionString}";
 
             return new OkObjectResult(responseMessage);
         }
